@@ -12,6 +12,7 @@ print (discord.__version__)
 @bot.event
 async def on_ready():
     print ("Arc is online")
+    await client.change_presence(game=discord.Game(name="with code"))
 
 # ping command
 @bot.command(pass_context=True)
