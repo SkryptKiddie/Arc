@@ -19,4 +19,4 @@ So if you need to read this, you must be new to bot hosting, that's no issue, he
 6. Copy the token and paste it into where it says "Token Goes Here" in the bot.py file.
 Now you're ready to run the bot!
 ## Support
-If you stumble across a bug or anything, we have a support server where you can get help. [Join](https://discord.gg/cTMfa56).
+If you stumble across a bug or anything, we have a support server where you can get help, [Join our Discord server](https://discord.gg/cTMfa56).
