@@ -1,3 +1,4 @@
+![Arc Logo](/arc.png)
 # Arc
 Arc is a Discord Bot written in Python, mainly made as a utilitarian bot with features such as kick, ban and userinfo.
 ## Requirements
