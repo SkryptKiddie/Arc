@@ -1,3 +1,27 @@
+#           _____                    _____                    _____                  
+#          /\    \                  /\    \                  /\    \                 
+#         /::\    \                /::\    \                /::\    \                
+#        /::::\    \              /::::\    \              /::::\    \               
+#       /::::::\    \            /::::::\    \            /::::::\    \              
+#      /:::/\:::\    \          /:::/\:::\    \          /:::/\:::\    \             
+#     /:::/__\:::\    \        /:::/__\:::\    \        /:::/  \:::\    \            
+#    /::::\   \:::\    \      /::::\   \:::\    \      /:::/    \:::\    \           
+#   /::::::\   \:::\    \    /::::::\   \:::\    \    /:::/    / \:::\    \          
+#  /:::/\:::\   \:::\    \  /:::/\:::\   \:::\____\  /:::/    /   \:::\    \         
+# /:::/  \:::\   \:::\____\/:::/  \:::\   \:::|    |/:::/____/     \:::\____\        
+# \::/    \:::\  /:::/    /\::/   |::::\  /:::|____|\:::\    \      \::/    /        
+#  \/____/ \:::\/:::/    /  \/____|:::::\/:::/    /  \:::\    \      \/____/         
+#           \::::::/    /         |:::::::::/    /    \:::\    \                     
+#            \::::/    /          |::|\::::/    /      \:::\    \                    
+#            /:::/    /           |::| \::/____/        \:::\    \                   
+#           /:::/    /            |::|  ~|               \:::\    \                  
+#          /:::/    /             |::|   |                \:::\    \                 
+#         /:::/    /              \::|   |                 \:::\____\                
+#         \::/    /                \:|   |                  \::/    /                
+#          \/____/                  \|___|                   \/____/                 
+#                                                                                   
+# 
+#
 # Arc by Joshek
 
 import discord
@@ -12,7 +36,6 @@ print (discord.__version__)
 @bot.event
 async def on_ready():
     print ("Arc is online")
-    await client.change_presence(game=discord.Game(name="with code"))
 
 # ping command
 @bot.command(pass_context=True)
@@ -40,5 +63,6 @@ async def kick(ctx, user: discord.Member):
 async def kick(ctx, user: discord.Member):
     await bot.say("{} has been banned.".format(user.name))
     await bot.ban(user)
-    
-bot.run("Token goes here")
+
+# this is where you insert you token
+bot.run("Token Goes Here")
