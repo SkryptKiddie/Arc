@@ -29,7 +29,8 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
 
-bot = commands.Bot(command_prefix='/')
+# Insert your prefix here
+bot = commands.Bot(command_prefix='PREFIX GOES HERE')
 
 print (discord.__version__)
 
@@ -65,4 +66,4 @@ async def kick(ctx, user: discord.Member):
     await bot.ban(user)
 
 # this is where you insert you token
-bot.run("Token Goes Here")
+bot.run("TOKEN GOES HERE")
