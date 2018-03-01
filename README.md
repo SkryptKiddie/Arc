@@ -9,7 +9,7 @@ To use Arc, you will need:
 * Discord.py
 ## Setup
 Setup of Arc is fairly simple.
-All you need to do is download the bot.py file, edit the token tag to contain your token, set a prefix and open with "python3 bot.py" and you're off!
+All you need to do is download the ZIP file and extract the contents anywhere, open `bot.py` and edit the token tag to contain your token, set a prefix and open with `python3 bot.py` and you're off!
 You will get a message once the bot is up telling you that the bot is online and connected to the Discord API.
 ## How to get a token
 So if you need to read this, you must be new to bot hosting, that's no issue, here is how to generate a token.
