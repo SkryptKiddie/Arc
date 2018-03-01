@@ -1,5 +1,6 @@
 # Arc v1.0
 Arc is a Discord Bot written in Python, mainly made as a utilitarian bot with features such as kick, ban and userinfo.
+# Support me!
 If you wish to support the developement and any other projects I take on, consider [buying me a coffee](https://ko-fi.com/joshek)! I'll always appreciate it and mention you on here.
 ## Requirements
 To use Arc, you will need:
