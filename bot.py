@@ -29,58 +29,42 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 import asyncio
 
-# Insert your prefix here
-bot = commands.Bot(command_prefix='PREFIX GOES HERE')
-
+bot = commands.Bot(command_prefix='arc!')
+print (discord.version_info)
 print (discord.__version__)
+print ("Arc is loading...")
 
 @bot.event
 async def on_ready():
     print ("Arc is online")
-
+    
 # ping command
 @bot.command(pass_context=True)
 async def ping(ctx):
-    await bot.say("Pong!")
-
-# userinfo command
-@bot.command(pass_context=True)
-async def userinfo(ctx, user: discord.Member):
-    embed = discord.Embed(title)
-    await bot.say("Username: {}".format(user.name))
-    await bot.say("User ID: {}".format(user.id))
-    await bot.say("Status: {}".format(user.status))
-    await bot.say("Roles: {}".format(user.roles))
-    await bot.say("Join date: {}".format(user.joined_at))
-
-# kick command
-@bot.command(pass_context=True)
-async def kick(ctx, user: discord.Member):
-    await bot.say("{} has been kicked.".format(user.name))
-    await bot.kick(user)
-
-# ban command
-@bot.command(pass_context=True)
-async def kick(ctx, user: discord.Member):
-    await bot.say("{} has been banned.".format(user.name))
-    await bot.ban(user)
-
-# about command
-async def about(ctx):
-    embed = discord.Embed(title="Bot made by Joshek#1337", description="Hi, I'm Arc, I'm a bot made in Discord.py by my wonderful creator, Joshek.", color=0x35FA00)
-    embed.set_footer(text="If you find any bugs, report them to my creator so he can fix them!")
-    await bot.say(embed=embed)
+    await bot.say("Pong! :ping_pong:")
     
-# server command
-async def server(ctx):
-    embed = discord.Embed(name="{}'s info".format(ctx.message.server.name), description="Here's the server details", color=0x00ff00)
-    embed.set_author(name="Arc")
-    embed.add_field(name="Guild Name", value=ctx.message.server.name, inline=True)
-    embed.add_field(name="Guild ID", value=ctx.message.server.id, inline=True)
-    embed.add_field(name="Roles", value=len(ctx.message.server.roles), inline=True)
-    embed.add_field(name="Member count", value=len(ctx.message.server.members))
-    embed.set_thumbnail(url=ctx.message.server.icon_url)
-    await bot.say(embed=embed)
+# about command
+@bot.command(pass_context=True)
+async def info(ctx):
+    await bot.say("My name is Arc and I am written in Discord.py. I was made by Joshek#1337 over the course of a few weeks. I will be getting more features soon.")
+    await bot.say("If you wish to support development, check you the code at https://github.com/JoshekDeveloper/Arc.")
 
-# this is where you insert you token
-bot.run("TOKEN GOES HERE")
+# invite command
+@bot.command(pass_context=True)
+async def invite(ctx):
+    await bot.say("My invite is https://discordapp.com/oauth2/authorize?client_id=417982648749654016&scope=bot&permissions=8 .")
+    
+# support command
+@bot.command(pass_context=True)
+async def support(ctx):   
+    await bot.say("https://discord.gg/cTMfa56")
+
+# joined command
+@bot.command(pass_context=True)
+async def joined(ctx, member: discord.Member = None):
+    if member is None:
+        member = ctx.message.author
+    await bot.say('{0} joined the server at {0.joined_at}'.format(member))
+    
+# this is where you insert your token
+bot.run("Token goes here")
