@@ -4,18 +4,19 @@
 import discord
 import asyncio
 import time
+import logging
 from discord.ext import commands
 from discord.ext.commands import Bot
 
 bot = commands.Bot(command_prefix='arc!', formatter=None, pm_help=True, description="Hi, I'm Arc. These are my commands. If you find any bugs, please DM Joshek#1337.", CommandNotFound="Invalid command!", owner_id= "372931332239654912")
-print (discord.version_info)
-print (discord.__version__)
-print ("Arc v2.3.1")
+print (discord.version_info) # prints discord.py version
+print (discord.__version__) # prints discord.py version
+print ("Arc v2.3.1") # current bot version
 print ("Connecting and loading...")
 
 @bot.event
 async def on_ready():
-    print ("Arc is online.")
+    print ("Arc is online.") # bot is online and listening
 
 # about command
 @bot.command(pass_context=True)
@@ -30,27 +31,17 @@ async def about(ctx):
     await bot.say(embed=embed)
     print ("User ran about")
 
-# halp command
-@bot.command(pass_context=True)
-async def halp(ctx):
-    embed=discord.Embed(title="Q&A", description="Here are some answers for questions you may have.", color=0x8000ff)
-    embed.set_thumbnail(url="https://joshek.xyz/arc/arc.png")
-    embed.add_field(name="How to use Moderation commands?", value="Easy, you need to have a role called 'staff', then you can use them.", inline=True)
-    embed.add_field(name="Why does the bot keep going offline?", value="It's just me working on stuff and fixing stuff, not the bot crashing.", inline=True)
-    embed.set_footer(text="These are just some common questions I thought people would ask, shoot me a DM at Joshek#1337 if you have other questions!")
-    await bot.say(embed=embed)
-    print ("User ran halp")
-
 # update log
 @bot.command(pass_context=True)
 async def updates(ctx):
     """Update log."""
-    embed=discord.Embed(title="Version 2.3.1", color=0xff8040)
+    embed=discord.Embed(title="Version 2.4.0", color=0xff8040)
     embed.set_thumbnail(url="https://joshek.xyz/arc/arc.png")
     embed.set_author(name="Update log")
-    embed.add_field(name="New command!", value="arc!add", inline=True)
+    embed.add_field(name="Updated moderation system.", value="Moderation commands now work by permissions.", inline=True)
+    embed.add_field(name="Added low-level logging.", value="Internal change.", inline=True)
+    embed.add_field(name="emoved quickstart.", value="No longer required.", inline=True)
     embed.set_thumbnail(url="https://joshek.xyz/Arc.png")
-    embed.add_field(name="Updated about description.", value="Changed the about command description.", inline=True)
     embed.set_footer(text="New features are always being added.")
     await bot.say(embed=embed)
     print ("User ran updates")
@@ -88,6 +79,7 @@ async def invite(ctx):
 # botsay command
 @bot.command(pass_context=True)
 async def say(ctx, arg):
+    """Speak as the bot."""
     await bot.say(arg)
     print ("User ran botsay")
 
@@ -126,7 +118,7 @@ async def joined(ctx, member: discord.Member = None):
 
 # kick command
 @bot.command(pass_context = True)
-@commands.has_role("staff")
+@commands.has_permissions(administrator=True, kick_members=True)
 async def kick(ctx, user: discord.Member):
     """Kicks a user. (requires role called staff)"""
     await bot.say("User kicked!")
@@ -135,7 +127,7 @@ async def kick(ctx, user: discord.Member):
 
 # ban command
 @bot.command(pass_context = True)
-@commands.has_role("staff")
+@commands.has_permissions(administrator=True, ban_members=True)
 async def ban(ctx, user: discord.Member):
     """Bans a user. (requires role called staff)"""
     await bot.say("User banned!")
@@ -149,6 +141,14 @@ async def add(left : int, right : int):
     await bot.say(left + right)
     print ("User ran add")
     
+# logs
+logger = logging.getLogger('discord')
+logger.setLevel(logging.DEBUG)
+handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
+handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+logger.addHandler(handler)
+
 
 # this is where you insert you token
 bot.run("Token goes here")
+
