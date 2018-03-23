@@ -149,6 +149,6 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 
-# this is where you insert you token
+# this is where you insert your token
 bot.run("Token goes here")
 
