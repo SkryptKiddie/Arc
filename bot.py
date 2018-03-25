@@ -48,12 +48,12 @@ async def info(ctx):
 @bot.command(pass_context=True)
 async def updates(ctx):
     """Update log."""
-    embed=discord.Embed(title="Version 2.5.0", color=0xff8040)
+    embed=discord.Embed(title="Version 2.5.1", color=0xff8040)
     embed.set_thumbnail(url="https://joshek.xyz/arc/arc.png")
     embed.set_author(name="Update log")
-    embed.add_field(name="Updated user and server info.", value="Added a new field to both.", inline=True)
-    embed.add_field(name="Some code fixes.", value="Internal change.", inline=True)
-    embed.add_field(name="Added info.", value="Added with about.", inline=True)
+    embed.add_field(name="Updated user and server info.", value="Added a new field to both.", inline=False)
+    embed.add_field(name="Some code fixes.", value="Internal change.", inline=False)
+    embed.add_field(name="Added info.", value="Added with about.", inline=False)
     embed.set_thumbnail(url="https://joshek.xyz/Arc.png")
     embed.set_footer(text="New features are always being added.")
     await bot.say(embed=embed)
