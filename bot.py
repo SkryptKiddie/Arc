@@ -10,14 +10,14 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 
 bot = commands.Bot(command_prefix='arc!', formatter=None, pm_help=True, description="Hi, I'm Arc. These are my commands. If you find any bugs, please DM Joshek#1337.", CommandNotFound="Invalid command!", owner_id= "372931332239654912")
-print (discord.version_info) 
-print (discord.__version__) 
-print ("Arc v2.3.1")
+print (discord.version_info) # prints discord.py version
+print (discord.__version__) # prints discord.py version
+print ("Arc v2.3.1") # current bot version
 print ("Connecting and loading...")
 
 @bot.event
 async def on_ready():
-    print ("Arc is online.")
+    print ("Arc is online.") # bot is online and listening
 
 # about command
 @bot.command(pass_context=True)
@@ -39,7 +39,7 @@ async def info(ctx):
     embed.set_thumbnail(url="https://joshek.xyz/arc/arc.png")
     embed.add_field(name="Support", value="https://discord.gg/cTMfa56", inline=True)
     embed.add_field(name="Website", value="https://joshek.xyz/arc", inline=True)
-    embed.add_field(name="Donate", value="https://ko-fi.com/joshek", inline=True)
+    embed.add_field(name="PayPal", value="https://paypal.me/JoshekDeveloper", inline=True)
     embed.set_footer(text="Written by Joshek#1337 in Discord.py")
     await bot.say(embed=embed)
     print ("User ran info")
@@ -48,22 +48,20 @@ async def info(ctx):
 @bot.command(pass_context=True)
 async def updates(ctx):
     """Update log."""
-    embed=discord.Embed(title="Version 2.5.1", color=0xff8040)
+    embed=discord.Embed(title="Version 2.6.0", color=0xff8040)
     embed.set_thumbnail(url="https://joshek.xyz/arc/arc.png")
     embed.set_author(name="Update log")
-    embed.add_field(name="Updated user and server info.", value="Added a new field to both.", inline=False)
-    embed.add_field(name="Some code fixes.", value="Internal change.", inline=False)
-    embed.add_field(name="Added info.", value="Added with about.", inline=False)
+    embed.add_field(name="Added avatar command.", value="Display a users avatar with arc!avatar and a mention.", inline=False)
     embed.set_thumbnail(url="https://joshek.xyz/Arc.png")
     embed.set_footer(text="New features are always being added.")
     await bot.say(embed=embed)
     print ("User ran updates")
-    
+
 # donate commmand
 @bot.command(pass_context = True)
 async def donate(ctx):
     """Links to donate to the development."""
-    embed=discord.Embed(title="Buy me a coffee.", url="https://ko-fi.com/joshek", description="Help support the development of Arc.", color=0xff0000)
+    embed=discord.Embed(title="Buy me a coffee.", url="https://paypal.me/JoshekDeveloper", description="Help support the development of Arc.", color=0xff0000)
     embed.set_thumbnail(url="https://joshek.xyz/arc/arc.png")
     embed.set_author(name="Donate.")
     embed.set_footer(text="I'll always host Arc, but donations help me.")
@@ -93,7 +91,7 @@ async def invite(ctx):
 async def say(ctx, arg):
     """Speak as the bot."""
     await bot.say(arg)
-    print ("User ran say")
+    print ("User ran botsay")
 
 # serverinfo command
 @bot.command(pass_context=True)
@@ -123,6 +121,16 @@ async def userinfo(ctx, user: discord.Member):
     embed.set_thumbnail(url=user.avatar_url)
     await bot.say(embed=embed)
     print ("User ran userinfo")
+
+# avatar command
+@bot.command(pass_context=True)
+async def avatar(ctx, user: discord.Member):
+    """Displays users avatar."""
+    embed=discord.Embed(title=user.avatar_url, color=0x80ff00)
+    embed.set_author(name="Here is the users avatar.")
+    embed.set_thumbnail(url=user.avatar_url)
+    await bot.say(embed=embed)
+    print ("User ran avatar")
    
 # kick command
 @bot.command(pass_context = True)
@@ -160,4 +168,4 @@ logger.addHandler(handler)
 
 
 # this is where you insert your token
-bot.run("normies reeee")
+bot.run("Token here xd")
