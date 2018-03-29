@@ -1,6 +1,5 @@
 # Arc by Joshek
 # Written in Discord.py
-# Huge thanks to DJ Electro#8890 for eval, sub_command_not_found, playing status and fixing up stuff
 
 import discord
 import asyncio
@@ -26,7 +25,7 @@ async def on_ready():
     await bot.change_presence(game=discord.Game(name='Starting...'))
     await asyncio.sleep(5)
     await bot.change_presence(game=discord.Game(name="arc!about | {} users and {} servers!".format(
-        len(set(bot.get_all_members())), len(bot.servers)), type=1))
+        len(set(bot.get_all_members())), len(bot.servers)), type=3))
 
 def ownercheck(ctx):
     return ctx.message.author.id == "372931332239654912"
@@ -44,6 +43,9 @@ async def help(ctx):
     embed.add_field(name="invite", value="Invite the bot to your server.", inline=False)
     embed.add_field(name="serverinfo", value="Displays server details.", inline=False)
     embed.add_field(name="userinfo", value="Displays user details.", inline=False)
+    embed.add_field(name="kick", value="Kick a user.", inline=False)
+    embed.add_field(name="ban", value="Ban a user.", inline=False)
+    embed.add_field(name="purge", value="Purge messages.", inline=False)
     embed.add_field(name="avatar", value="Shows a users avatar.", inline=False)
     embed.add_field(name="mute", value="Mute a user.", inline=False)
     embed.add_field(name="unmute", value="Unmute a user.", inline=False)
@@ -59,8 +61,8 @@ async def help(ctx):
 async def about(ctx):
     """Information about the bot."""
     embed = discord.Embed(title="About Arc.",
-    description="Hello there :wave:, Iâ€™m Arc. Iâ€™m here to make your Discord server better with utilitarian features and moderation. Here are some links to where you can find out more about me!",
-    color=0x146aeb)
+                          description="Hello there :wave:, Iâ€™m Arc. Iâ€™m here to make your Discord server better with utilitarian features and moderation. Here are some links to where you can find out more about me!",
+                          color=0x146aeb)
     embed.set_thumbnail(url="https://joshek.xyz/arc/arc.png")
     embed.add_field(name="Support", value="https://discord.gg/cTMfa56", inline=True)
     embed.add_field(name="Website", value="https://joshek.xyz/arc", inline=True)
@@ -160,6 +162,11 @@ async def ban(ctx, user: discord.Member):
     await bot.say(embed=embed)
     await bot.ban(user)
 
+# purge command
+@bot.command(pass_context=True)
+@commands.has_permissions(administrator=True, manage_messages=True)
+async def purge(ctx, amount):
+    await bot.purge_from(ctx.message.channel, limit=int(amount))
 
 # mute command
 @bot.command(pass_context=True)
@@ -234,45 +241,33 @@ async def hug(ctx, member: discord.Member):
     embed.set_thumbnail(url="https://media1.tenor.com/images/0be55a868e05bd369606f3684d95bf1e/tenor.gif?itemid=7939558")
     await bot.say(embed=embed)
 
+
+# misc commands
+
+# nothing here xd
+
 # backend and internal stuff, also owner commands
 
 # say command
+@commands.check(ownercheck)
 @bot.command(pass_context=True, hidden=True)
 async def say(ctx, arg):
-    if ctx.message.author.id == '372931332239654912':
         await bot.say(arg)
-    else:
-        print("User attempted to run say")
-        embed = discord.Embed(title="Permission denied!", description="Command is owner-only to prevent abuse.",
-                              color=0xff0000)
-        await bot.say(embed=embed)
 
 # embedsay command
+@commands.check(ownercheck)
 @bot.command(pass_context=True, hidden=True)
 async def embedsay(ctx, title, desc):
-    if ctx.message.author.id == '372931332239654912':
         embed = discord.Embed(title=title, description=desc, color=0x00ff40)
         await bot.say(embed=embed)
-    else:
-        print("User attempted to run embedsay")
-        embed = discord.Embed(title="Permission denied!", description="Command is owner-only to prevent abuse.",
-                              color=0xff0000)
-        await bot.say(embed=embed)
-
 
 # status command
+@commands.check(ownercheck)
 @bot.command(pass_context=True, hidden=True)
 async def status(ctx, status):
-    if ctx.message.author.id == '372931332239654912':
         await bot.change_presence(game=discord.Game(name=status))
         print("Status has been changed")
-    else:
-        print("User has attempted to change status")
-        embed = discord.Embed(title="Permission denied!", description="Command is owner-only to prevent abuse.",
-                              color=0xff0000)
-        await bot.say(embed=embed)
 
-# eval command (thanks DJ Electro#8890)
 @commands.check(ownercheck)
 @bot.command(pass_context=True)
 async def debug(ctx, *, code):
@@ -299,9 +294,7 @@ async def debug(ctx, *, code):
 @bot.event
 async def on_command_error(event, ctx):
     if isinstance(event, commands.CheckFailure):
-        embed = discord.Embed(title="Permission denied!", description="Command is owner-only to prevent abuse.",
-                              color=0xff0000)
-        await bot.say(embed=embed)
+        await bot.send_message(ctx.message.user, ":no_entry: Command is owner-only to prevent abuse.")
     if isinstance(event, commands.MissingRequiredArgument):
         await send_cmd_help(ctx)
     if isinstance(event, commands.CommandNotFound):
@@ -328,6 +321,7 @@ logger.setLevel(logging.WARNING)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
+
 
 # this is where you insert your token
 bot.run("Token goes here")
