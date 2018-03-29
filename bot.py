@@ -59,8 +59,8 @@ async def help(ctx):
 async def about(ctx):
     """Information about the bot."""
     embed = discord.Embed(title="About Arc.",
-                          description="Hello there :wave:, Iâ€™m Arc. Iâ€™m here to make your Discord server better with utilitarian features and moderation. Here are some links to where you can find out more about me!",
-                          color=0x146aeb)
+    description="Hello there :wave:, Iâ€™m Arc. Iâ€™m here to make your Discord server better with utilitarian features and moderation. Here are some links to where you can find out more about me!",
+    color=0x146aeb)
     embed.set_thumbnail(url="https://joshek.xyz/arc/arc.png")
     embed.add_field(name="Support", value="https://discord.gg/cTMfa56", inline=True)
     embed.add_field(name="Website", value="https://joshek.xyz/arc", inline=True)
