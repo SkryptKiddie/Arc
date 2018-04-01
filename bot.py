@@ -225,7 +225,7 @@ async def punch(ctx, member: discord.Member):
 # shoot command
 @bot.command(pass_context=True)
 async def shoot(ctx, member: discord.Member):
-    """Slap someone."""
+    """Shoot someone."""
     embed = discord.Embed(title="Pow Pow Pow!",
                           description="**{1}** shoots **{0}**!".format(member, ctx.message.author), color=0x146aeb)
     embed.set_thumbnail(url="https://media.giphy.com/media/9umH7yTO8gLYY/giphy.gif")
