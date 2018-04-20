@@ -10,4 +10,4 @@ To use Arc, you will need:
 * pip
 * Discord.py
 ## Support
-If you stumble across a bug or anything, we have a support server where you can get help, [Join our Discord server](https://discord.gg/cTMfa56).
+If you stumble across a bug or anything, we have a support server where you can get help, [Join our Discord server](https://discord.gg/cTMfa56) or check out the [Trello](https://trello.com/b/W12CBdcP/arc).
