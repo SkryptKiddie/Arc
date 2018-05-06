@@ -61,33 +61,42 @@ async def help(ctx):
     await bot.say(embed=embed)
     embed=discord.Embed(title="General.", color=0x176cd5)
     embed.set_author(name="Website.", url="https://joshek.xyz/arc/", icon_url="https://joshek.xyz/arc/images/ArcLogo.png")
-    embed.add_field(name="about", value="Show's information.", inline=True)
-    embed.add_field(name="stats", value="Show's technical details.", inline=True)
-    embed.add_field(name="support", value="Invite to support server.", inline=True)
-    embed.add_field(name="donate", value="Donate to the development.", inline=True)
-    embed.add_field(name="ping", value="Pong!", inline=True)
-    embed.add_field(name="invite", value="Invite the bot to your server.", inline=True)
+    embed.add_field(name="`about`", value="Show's information.", inline=True)
+    embed.add_field(name="`stats`", value="Show's technical details.", inline=True)
+    embed.add_field(name="`support`", value="Invite to support server.", inline=True)
+    embed.add_field(name="`donate`", value="Donate to the development.", inline=True)
+    embed.add_field(name="`ping`", value="Pong!", inline=True)
+    embed.add_field(name="`invite`", value="Invite the bot to your server.", inline=True)
     await bot.send_message(ctx.message.author, embed=embed)
     embed=discord.Embed(title="Moderation.", color=0xff8080)
-    embed.add_field(name="serverinfo", value="Displays server details.", inline=True)
-    embed.add_field(name="userinfo", value="Displays user details.", inline=True)
-    embed.add_field(name="kick", value="Kick a user.", inline=True)
-    embed.add_field(name="ban", value="Ban a user.", inline=True)
-    embed.add_field(name="purge", value="Purge messages.", inline=True)
-    embed.add_field(name="avatar", value="Shows a users avatar.", inline=True)
-    embed.add_field(name="mute", value="Mute a user.", inline=True)
-    embed.add_field(name="unmute", value="Unmute a user.", inline=True)
-    embed.add_field(name="addrole", value="Add a role.", inline=True)
-    embed.add_field(name="removerole", value="Remove a role.", inline=True)
+    embed.add_field(name="`serverinfo`", value="Displays server details.", inline=True)
+    embed.add_field(name="`userinfo`", value="Displays user details.", inline=True)
+    embed.add_field(name="`kick`", value="Kick a user.", inline=True)
+    embed.add_field(name="`ban`", value="Ban a user.", inline=True)
+    embed.add_field(name="`purge`", value="Purge messages.", inline=True)
+    embed.add_field(name="`avatar`", value="Shows a users avatar.", inline=True)
+    embed.add_field(name="`mute`", value="Mute a user.", inline=True)
+    embed.add_field(name="`unmute`", value="Unmute a user.", inline=True)
+    embed.add_field(name="`addrole`", value="Add a role.", inline=True)
+    embed.add_field(name="`removerole`", value="Remove a role.", inline=True)
     await bot.send_message(ctx.message.author, embed=embed)
     embed=discord.Embed(title="Fun.", color=0xffff80)
-    embed.add_field(name="slap", value="Slap a user.", inline=True)
-    embed.add_field(name="lick", value="Lick a user.", inline=True)
-    embed.add_field(name="punch", value="Punch a user.", inline=True)
-    embed.add_field(name="hug", value="Hug a user.", inline=True)
-    embed.add_field(name="cat", value="Picture of a cat.", inline=True)
-    embed.add_field(name="duck", value="Picture of a duck.", inline=True)
-    embed.add_field(name="roll", value="Roll a dice in NdN format.", inline=True)
+    embed.add_field(name="`slap`", value="Slap a user.", inline=True)
+    embed.add_field(name="`lick`", value="Lick a user.", inline=True)
+    embed.add_field(name="`punch`", value="Punch a user.", inline=True)
+    embed.add_field(name="`hug`", value="Hug a user.", inline=True)
+    embed.add_field(name="`cat`", value="Picture of a cat.", inline=True)
+    embed.add_field(name="`duck`", value="Picture of a duck.", inline=True)
+    embed.add_field(name="`roll`", value="Roll a dice in NdN format.", inline=True)
+    await bot.send_message(ctx.message.author, embed=embed)
+    embed=discord.Embed(title="Owner.", description="These commands can only be ran by <@372931332239654912>", color=0x8000ff)
+    embed.add_field(name="`say`", value="Speak via the bot.", inline=True)
+    embed.add_field(name="`embedsay`", value="Speak via the bot in an embed.", inline=True)
+    embed.add_field(name="`debug`", value="Evaluate python code.", inline=True)
+    embed.add_field(name="`status`", value="Change bot status.", inline=True)
+    embed.add_field(name="`reloadstats`", value="Update bot playing stats.", inline=True)
+    embed.add_field(name="`shutdown`", value="Shut the bot down.", inline=True)
+    embed.add_field(name="`traceback`", value="Send the traceback file via DMs.", inline=True)
     await bot.send_message(ctx.message.author, embed=embed)
 
 # stats command
@@ -100,6 +109,7 @@ async def stats(ctx):
     embed.add_field(name="Emojis", value=len(set(bot.get_all_emojis())), inline=True)
     embed.add_field(name="Discord.py release", value=discord.version_info, inline=True)
     embed.add_field(name="Discord.py version", value=discord.__version__, inline=True)
+    embed.add_field(name="Commands", value=len(bot.commandsz))
     embed.add_field(name="Bot owner", value="Joshek#1337", inline=True)
     await bot.say(embed=embed)
 
@@ -112,7 +122,6 @@ async def about(ctx):
     embed.set_thumbnail(url="https://joshek.xyz/arc/images/ArcLogo.png")
     embed.add_field(name="Support", value="https://discord.gg/cTMfa56", inline=True)
     embed.add_field(name="Website", value="https://joshek.xyz/arc", inline=True)
-    embed.add_field(name="Donators", value="adam#0327 - $5", inline=False)
     await bot.say(embed=embed)
 
 # donate commmand
@@ -120,6 +129,7 @@ async def about(ctx):
 async def donate(ctx):
     """Links to donate to the development."""
     embed = discord.Embed(title="Donate to the Patreon.", url="https://www.patreon.com/arcbot", description="Help support the development of Arc.", color=0x176cd5)
+    embed.add_field(name="Donators", value="adam#0327 - $5", inline=False)
     embed.set_thumbnail(url="https://joshek.xyz/arc/arc.png")
     await bot.send_message(ctx.message.author, embed=embed)
 
@@ -138,6 +148,7 @@ async def invite(ctx):
     embed = discord.Embed(title="I've sent you a DM with the invite link.", color=0x176cd5)
     await bot.say(embed=embed)
     embed = discord.Embed(title="Invite Arc to your server.", url="https://discordapp.com/oauth2/authorize?client_id=417982648749654016&scope=bot&permissions=8", color=0x176cd5)
+    embed.set_thumbnail(url="https://joshek.xyz/arc/images/ArcLogo.png")
     embed.set_footer(text="Add Arc to your server (requires manage server permissions)")
     await bot.send_message(ctx.message.author, embed=embed)
 
@@ -189,7 +200,7 @@ async def userinfo(ctx, user: discord.Member):
 async def avatar(ctx, user: discord.Member):
     """Displays users avatar."""
     embed = discord.Embed(color=0x176cd5)
-    embed.set_author(name="Here you go!")
+    embed = discord.Embed(title="View full image.", url=ctx.message.author.avatar_url, color=0x176cd5)
     embed.set_image(url=user.avatar_url)
     embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
     await bot.say(embed=embed)
@@ -424,11 +435,14 @@ async def debug(ctx, *, code):
         if asyncio.iscoroutine(result):
             result = await result
         result = str(result)
-        embed=discord.Embed(title="Evaluation Output", description="```" + result + "```", color=0x80ff80)
-        embed.set_thumbnail(url="https://joshek.xyz/arc/images/hackerman.png")
+        embed=discord.Embed(title="<:success:442552796303196162> Evaluated successfully.", color=0x80ff80)
+        embed.add_field(name="Input :inbox_tray:", value="```" + code + "```")
+        embed.add_field(name="Output :outbox_tray:", value="```" + result + "```")
         await bot.say(embed=embed)
     except Exception as error:
-        embed=discord.Embed(title="Evaluation error!", description='```{}: {}```'.format(type(error).__name__, str(error)), color=0xff0000)
+        embed=discord.Embed(title="<:error:442552796420767754> Evaluation failed ", color=0xff0000)
+        embed.add_field(name="Input :inbox_tray:", value="```" + code + "```", inline=True)
+        embed.add_field(name="Error <:error2:442590069082161163>", value='```{}: {}```'.format(type(error).__name__, str(error)))
         await bot.say(embed=embed)
         return
 
@@ -436,7 +450,7 @@ async def debug(ctx, *, code):
 @commands.check(ownercheck)
 @bot.command(pass_context=True)
 async def shutdown(ctx, why):
-    embed=discord.Embed(title="Shutting down...", description="Pending shutdown....", color=0xff8080)
+    embed=discord.Embed(title="Shutting down...", color=0xff8080)
     embed.add_field(name="Reason", value=why, inline=False)
     await bot.say(embed=embed)
     embed=discord.Embed(title="Shut down.", color=0xff8080)
@@ -444,6 +458,7 @@ async def shutdown(ctx, why):
     embed.add_field(name="By", value=ctx.message.author, inline=True)
     server = bot.get_server("438316852347666432")
     await bot.send_message(bot.get_channel("438352619988320296"), embed=embed)
+    print("Shutdown has been executed. Goodbye.")
     await bot.logout()
 
 # traceback command
