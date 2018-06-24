@@ -24,4 +24,10 @@ Requires that DMs are open.
 ## serverinfo  
 Displays information about the server the command was ran in (user count, server ID, role count, etc.)  
 Requires no permissions to run.
-## userinfo <user mention>
+## userinfo `user mention`  
+Fetch information on the mentioned user (profile picture, user ID, playing status, etc.)  
+Requires no permissions to run.
+## warn `user mention` `reason`  
+Warn a mentioned user to send a DM to them with a reason for the warning.
+Requires Administrator, kick or ban to be ran.
+## kick `user mention`
