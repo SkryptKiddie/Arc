@@ -5,6 +5,8 @@
 ## help
 Displays basic help information for the user commands that can be ran.  
 Only requires that DMs are open.  
+## about  
+Shows basic information about Arc and other resources.  
 ## stats
 Shows the techniacal stats of Arc (discord.py version, ping, command count, etc.)  
 Requires no permissions to run.  
