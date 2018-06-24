@@ -18,5 +18,10 @@ Only requires that DMs are open.
 Test the response time of the bot in milliseconds.  
 Requires no permissions to run.
 ## invite
-DMs the bot invite link to the user who ran the command.
+DMs the bot invite link to the user who ran the command.  
 Requires that DMs are open.
+# Moderation commands
+## serverinfo  
+Displays information about the server the command was ran in (user count, server ID, role count, etc.)  
+Requires no permissions to run.
+## userinfo <user mention>
