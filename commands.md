@@ -44,4 +44,49 @@ Gets the mentioned users avatar as well as a URL to view in a web browser or to 
 Requires no permissions to be ran.  
 ## mute `user mention`  
 Mutes a specified user. **Requires a role called `mute` exists or this will error!**  
-Requires Administrator
+Requires Administrator or manage roles to be ran.  
+## unmute `user mention`  
+Unmutes a user with the `Muted` role. **User must of already been muted or this will not work!**  
+## addrole `user mention` `role name`  
+Adds a specified role to the mentioned user. **Role name must be the correct capitalisation or this won't work.**  
+Requires Administrator or manage roles to be ran.  
+## removerole `user mention` `role name`  
+Removes the specified role from the mentioned user. **User must have role or this will not work.**  
+Requires Administrator or manage roles to be ran.  
+## announce `channel mention` `message`  
+Announce a message to the specified channel.  
+Requires Administrator or manage server to be ran.  
+# Fun
+## slap `user mention`
+Slap a user.  
+## lick `user mention`  
+Lick a user.  
+## punch `user mention`  
+Punch a user.  
+## hug `user mention`  
+Hug a user.  
+## cookie `user mention`  
+Give a cookie to a user.  
+## cat  
+Shows a random picture of a cat from  [random-d.uk](https://random-d.uk)  
+## duck  
+Shows a random picture of a duck from [The cat API](http://thecatapi.com)  
+## roll `NdN`  
+Roll a dice in NdN format, example would be `arc!roll 1d4`.  
+## wherewedroppin  
+Picks a random location from the Fortnite Season 4 map to drop at.  
+## eightball `question`  
+Ask the 8ball a question.  
+## choose `values`  
+Pick a random choice. **Requires that all individual values be wrapped in a quotation mark!**  
+eg `arc!choose "1" "2" "3"`  
+## speak `message`  
+Send a message via the bot.  
+## gamenews `steam game ID`  
+Get news on a steam game from the Steam API.  
+## json `JSON API URL`  
+Makes a request to the specifed JSON API and prints the results.  
+## weather `location`  
+Gets local weather forcast from [wttr.in](https://wttr.in)  
+## hex  
+Generate a random hex color code.  
