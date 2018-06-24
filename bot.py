@@ -14,12 +14,15 @@ import subprocess
 from discord.ext import commands
 from discord.ext.commands import Bot
 
-# https://stackoverflow.com/questions/2835559/parsing-values-from-a-json-file - source of the loading snippit
-json_data=open(config.json).read() # read file
-data = json.loads(json_data) # allow reading of the contents
+token = ""
+prefix = ""
+owner = ""
 
 # Configuration and settings
-bot = commands.Bot(command_prefix=data[prefix], case_insensitive=True)
+dbltoken = ""
+url = "https://discordbots.org/api/bots//stats"
+headers = {"Authorization" : dbltoken}
+bot = commands.Bot(command_prefix=prefix, case_insensitive=True)
 bot.remove_command('help')
 startup = open("arc.txt") # arc.txt is required for the ASCII logo to display but is not required.
 print(startup.read()) # just remove these lines if you don't want it.
@@ -36,14 +39,14 @@ async def on_ready():
 	
 # Specify bot owners ID for owner-only commands.
 def ownercheck(ctx):
-    return ctx.message.author.id == data[owner]
+    return ctx.message.author.id == owner
 
 # General Commands.
 # help command
 @bot.command(pass_context=True)
 async def help(ctx):
     embed=discord.Embed(title="Help is on the way!", color=0x0080ff)
-    embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+    embed.set_author(name="Better docs", url="https://github.com/SkryptKiddie/Arc/blob/master/commands.md")
     await bot.say(embed=embed)
     embed=discord.Embed(title="General.", color=0x176cd5)
     embed.set_author(name="Website.", url="https://joshek.xyz/arc/", icon_url="https://joshek.xyz/arc/images/ArcLogo.png")
@@ -57,6 +60,7 @@ async def help(ctx):
     embed=discord.Embed(title="Moderation.", color=0xff8080)
     embed.add_field(name="`serverinfo`", value="Displays server details.", inline=True)
     embed.add_field(name="`userinfo`", value="Displays user details.", inline=True)
+    embed.add_field(name="`warn`", value="Warn a user.", inline=True)
     embed.add_field(name="`kick`", value="Kick a user.", inline=True)
     embed.add_field(name="`ban`", value="Ban a user.", inline=True)
     embed.add_field(name="`purge`", value="Purge messages.", inline=True)
@@ -74,6 +78,8 @@ async def help(ctx):
     embed.add_field(name="`hug`", value="Hug a user.", inline=True)
     embed.add_field(name="`cat`", value="Picture of a cat.", inline=True)
     embed.add_field(name="`duck`", value="Picture of a duck.", inline=True)
+    embed.add_field(name="`cookie`", value="Give someone a cookie.", inline=True)
+    embed.add_field(name="`choose`", value="Make a choice.", inline=True)
     embed.add_field(name="`roll`", value="Roll a dice in NdN format.", inline=True)
     embed.add_field(name="`wherewedroppin`", value="Selects a random location on the Fortnite map to drop at.", inline=True)
     embed.add_field(name="`speak`", value="Helpful for announcements.", inline=True)
@@ -81,22 +87,11 @@ async def help(ctx):
     embed.add_field(name="`json`", value="Make a request to a JSON API.", inline=True)
     embed.add_field(name="`weather`", value="Gives you weather details for a specified area.")
     await bot.send_message(ctx.message.author, embed=embed)
-    embed=discord.Embed(title="Owner.", description="These commands can only be ran by <@372931332239654912>", color=0x8000ff)
-    embed.add_field(name="`say`", value="Speak via the bot.", inline=True)
-    embed.add_field(name="`embedsay`", value="Speak via the bot in an embed.", inline=True)
-    embed.add_field(name="`debug`", value="Evaluate python code.", inline=True)
-    embed.add_field(name="`status`", value="Change bot status.", inline=True)
-    embed.add_field(name="`reloadstats`", value="Update bot playing stats.", inline=True)
-    embed.add_field(name="`shutdown`", value="Shut the bot down.", inline=True)
-    embed.add_field(name="`restart`", value="Restart the bot.", inline=True)
-    embed.add_field(name="`traceback`", value="Send the traceback file via DMs.", inline=True)
-    embed.add_field(name="`relay`", value="Relay a message from server to server", inline=True)
-    await bot.send_message(ctx.message.author, embed=embed)
 
 # stats command
 @bot.command(pass_context=True)
 async def stats(ctx):
-    ping = (time.monotonic()) / 10000
+    ping = (time.monotonic()) / 1000
     embed=discord.Embed(title="Technical details.", color=0x176cd5)
     embed.add_field(name="Guilds", value=len(bot.servers), inline=True)
     embed.add_field(name="Members", value=len(set(bot.get_all_members())), inline=True)
@@ -128,17 +123,17 @@ async def donate(ctx):
     embed.set_thumbnail(url="https://joshek.xyz/arc/images/ArcProdLogo.png")
     embed.add_field(name="Discord Bot List", value="https://discordbots.org/bot/417982648749654016/vote", inline=False)
     embed.add_field(name="Patreon", value="https://patreon.com/arcbot", inline=False)
-    embed.set_footer(text="Or you can spread to word and get some servers to add me 😉")
+    embed.set_footer(text="Or you can spread to word and get some servers to add me ??")
     await bot.say(embed=embed)
 
 # ping command
 @bot.command(pass_context=True)
 async def ping(ctx):
     """Ping the bot."""
-    ping = (time.monotonic()) / 100000
+    ping = (time.monotonic()) / 10000
     embed = discord.Embed(title=f"Pong!  `{int(ping)}ms`", color=0x176cd5)
+    embed.set_footer(text="The lower the number, the better the response time.")
     embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
-    embed.set_footer(text="The lower the ping, the better response time you should get.")
     await bot.say(embed=embed)
 
 # invite command
@@ -172,7 +167,6 @@ async def serverinfo(ctx):
     """Displays server information."""
     embed = discord.Embed(name="{}'s info".format(ctx.message.server.name), color=0x176cd5)
     embed.add_field(name="Server Name", value=ctx.message.server.name, inline=True)
-    embed.add_field(name="Server ID", value=, inline=True)
     embed.add_field(name="Roles", value=len(ctx.message.server.roles), inline=True)
     embed.add_field(name="Members", value=len(ctx.message.server.members))
     embed.add_field(name="Channels", value=len(ctx.message.server.channels))
@@ -217,6 +211,19 @@ async def avatar(ctx, user: discord.Member):
     embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
     embed.set_footer(text="Avatar of " + user)
     await bot.say(embed=embed)
+
+# warn command
+@bot.command(pass_context=True)
+async def warn(ctx, member: discord.Member, *, note):
+    if ctx.message.author.server_permissions.administrator or ctx.message.author.server_permissions.kick_members or ctx.message.author.server_permissions.ban_members:
+        embed=discord.Embed(title="You have recieved a warning.", description="You were warned in **{0}** by **{1}**. Moderator note is {2}.".format(ctx.message.server.name, ctx.message.author, note), color=0x176cd5)
+        embed.set_thumbnail(url="https://images.emojiterra.com/twitter/512px/26a0.png")
+        await bot.send_message(member, embed=embed)
+        embed=discord.Embed(title="Warning issued", color=0x176cd5)
+        await bot.say(embed=embed)
+    else:
+        embed = discord.Embed(title="Permission Denied.", description="You don't have permission to use this command.", color=0x176cd5)
+        await bot.say(embed=embed)
 
 # kick command
 @bot.command(pass_context=True)
@@ -296,7 +303,7 @@ async def addrole(ctx, member: discord.Member, *, role):
     if ctx.message.author.server_permissions.administrator or ctx.message.author.server_permissions.manage_roles:
         role = discord.utils.get(member.server.roles, name=role)
         await bot.add_roles(member, role)
-        embed = discord.Embed(title="Role added", description="**{0}** added **{1}** to **{2}**!".format(ctx.message.author, role, member), color=0x176cd5)
+        embed = discord.Embed(title="Role added", description="Role was added!".format(ctx.message.author, role, member), color=0x176cd5)
         embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text="Responsible moderator - " + ctx.message.author)
         await bot.say(embed=embed)
@@ -311,24 +318,10 @@ async def removerole(ctx, member: discord.Member, *, role):
     if ctx.message.author.server_permissions.administrator or ctx.message.author.server_permissions.manage_roles:
         role = discord.utils.get(member.server.roles, name=role)
         await bot.remove_roles(member, role)
-        embed = discord.Embed(title="Role removed", description="**{0}** removed **{1}** from **{2}**!".format(ctx.message.author, role, member), color=0x176cd5)
+        embed = discord.Embed(title="Role removed", description="Role was removed!".format(ctx.message.author, role, member), color=0x176cd5)
         embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
         embed.set_footer(text="Responsible moderator - " + ctx.message.author)
         await bot.say(embed=embed)
-    else:
-        embed = discord.Embed(title="Permission Denied.", description="You don't have permission to use this command.", color=0x176cd5)
-        await bot.say(embed=embed)
-
-@bot.command(pass_context=True)
-async def warn(ctx, member: discord.Member, *, note):
-     if ctx.message.author.server_permissions.administrator or ctx.message.author.server_permissions.kick_members or ctx.message.author.server_permissions.ban_members:
-        embed = discord.Embed(title="Warning issued!", description="**{0}**has been warned for {1}!".format(member, note), color=0x176cd5)
-        embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
-        embed.set_footer(text="Responsible moderator - " + ctx.message.author)
-        await bot.say(embed=embed)
-        embed = discord.Embed(title="You have been warned.", description="**{0}**has been warned you for {1}!".format(ctx.message.author, note), color=0x176cd5)
-        embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
-        await bot.send_message(member, embed=embed)
     else:
         embed = discord.Embed(title="Permission Denied.", description="You don't have permission to use this command.", color=0x176cd5)
         await bot.say(embed=embed)
@@ -506,6 +499,39 @@ async def hex(ctx):
     embed=discord.Embed(title="Random hex", color=hex)
     embed.add_field(name="Hex code", value=hex)
     await bot.say(embed=embed)
+    
+# RATELIMITED.ME commands
+
+# token bump command
+@commands.check(rlcheck)
+@bot.command(pass_context=True)
+async def tokenbump(ctx):
+    embed=discord.Embed(title="Your token request was bumped!")
+    embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+    embed.set_footer(text="Thank you for waiting in the RATELIMITED.ME Air departure lounge.")
+    await bot.say(embed=embed)
+    # send to bump channel
+    embed=discord.Embed(title="New token bump!", description="An outstanding token request has been bumped.")
+    embed.add_field(name="Username", value=ctx.message.author.mention, inline=False)
+    embed.add_field(name="ID", value=ctx.message.author.id, inline=False)
+    embed.add_field(name="Date of bump", value=datetime.datetime.today(), inline=False)
+    server = bot.get_server("363508876164726795")
+    await bot.send_message(bot.get_channel("419238803656409100"), embed=embed)
+
+# role bump command
+@commands.check(rlcheck)
+@bot.command(pass_context=True)
+async def rolebump(ctx):
+    embed=discord.Embed(title="Your has token role request was bumped!")
+    embed.set_author(name=ctx.message.author, icon_url=ctx.message.author.avatar_url)
+    embed.set_footer(text="Thank you for waiting in the RATELIMITED.ME Air departure lounge.")
+    await bot.say(embed=embed)
+    # send to bump channel
+    embed=discord.Embed(title="New role bump!", description="An outstanding has token has been bumped.")
+    embed.add_field(name="Username", value=ctx.message.author.mention, inline=False)
+    embed.add_field(name="Date of bump", value=datetime.datetime.today(), inline=False)
+    server = bot.get_server("363508876164726795")
+    await bot.send_message(bot.get_channel("419238803656409100"), embed=embed)
 
 # Owner only commands
 # say command
@@ -530,10 +556,10 @@ async def status(ctx, *, status):
         embed.add_field(name="Current setting", value=status)
         await bot.say(embed=embed)
 
-# reloadstats command
+# refresh command
 @commands.check(ownercheck)
 @bot.command(pass_context=True)
-async def reloadstats(ctx):
+async def refresh(ctx):
     payload = {"server_count"  : len(bot.servers)}
     requests.post(url, data=payload, headers=headers)
     await bot.change_presence(game=discord.Game(name="arc!help | {} servers and {} users | joshek.xyz/arc".format(len(bot.servers), len(set(bot.get_all_members()))), type=3))
@@ -609,6 +635,22 @@ async def traceback(ctx):
     await bot.say(embed=embed)
     await bot.send_file(ctx.message.author, 'discord.log')
 
+# permcheck command
+@commands.check(ownercheck)
+@bot.command(pass_context=True)
+async def permcheck(ctx):
+    embed=discord.Embed(title="Permissions checker", description="Checks the bot permissions to debug any possible issues.")
+    embed.add_field(name="Administrator", value=ctx.message.author.server_permissions.administrator, inline=False)
+    embed.add_field(name="Manage server", value=ctx.message.author.server_permissions.manage_server, inline=False)
+    embed.add_field(name="Manage roles", value=ctx.message.author.server_permissions.manage_roles, inline=False)
+    embed.add_field(name="Kick members", value=ctx.message.author.server_permissions.kick_members, inline=False)
+    embed.add_field(name="Ban members", value=ctx.message.author.server_permissions.ban_members, inline=False)
+    embed.add_field(name="Manage channels", value=ctx.message.author.server_permissions.manage_channels, inline=False)
+    embed.add_field(name="Send messages", value=ctx.message.author.server_permissions.send_messages, inline=False)
+    embed.add_field(name="Manage messages", value=ctx.message.author.server_permissions.manage_messages, inline=False)
+    embed.set_footer(text="True means yes, false means no.")
+    await bot.say(embed=embed)
+
 # load
 @commands.check(ownercheck)
 @bot.command()
@@ -644,22 +686,24 @@ async def on_command_error(event, ctx):
     if isinstance(event, commands.MissingRequiredArgument):
         await send_cmd_help(ctx) # send default subcommand embed
 
-# Missing subcommand
-async def send_cmd_help(ctx):
-    if ctx.invoked_subcommand:
-        pages = bot.formatter.format_help_for(ctx, ctx.invoked_subcommand)
-        for page in pages:
-            await bot.send_message(ctx.message.channel, page)
-    else:
-        pages =     
-        for page in pages:
-            await bot.send_message(ctx.message.channel, page) 
-
 # Error logging to file
 logger = logging.getLogger('discord')
-logger.setLevel(logging.WARNING)
+logger.setLevel(logging.INFO)
 handler = logging.FileHandler(filename='discord.log', encoding='utf-8', mode='w')
 handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
 logger.addHandler(handler)
 
-bot.run(data[token])
+# command execution logging
+@bot.event
+async def on_command(command, ctx):
+    embed = discord.Embed(title="Command ran!", color=0x176cd5)
+    embed.add_field(name="Command author", value=str(ctx.message.author), inline=True)
+    embed.add_field(name="Command ran", value=str(ctx.message.content), inline=True)
+    embed.add_field(name="Server", value=str(ctx.message.server.name), inline=True)
+    embed.add_field(name="Server ID", value=str(ctx.message.server.id), inline=True)
+    embed.add_field(name="Channel ID", value=str(ctx.message.channel.id), inline=True)
+    embed.add_field(name="Author ID", value=str(ctx.message.author.id), inline=True)
+    server = bot.get_server("438316852347666432")
+    await bot.send_message(bot.get_channel("452998136793923585"), embed=embed)
+
+bot.run(token)
