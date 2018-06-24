@@ -29,5 +29,19 @@ Fetch information on the mentioned user (profile picture, user ID, playing statu
 Requires no permissions to run.
 ## warn `user mention` `reason`  
 Warn a mentioned user to send a DM to them with a reason for the warning.
-Requires Administrator, kick or ban to be ran.
+Requires Administrator, kick or ban to be ran, as well as the user to have DMs open.
 ## kick `user mention`
+Kick the mentioned user from the server, they can rejoin with a new invite after.  
+Requires Administrator or kick permissions.  
+## ban `user mention`  
+Ban a specified user from the server. They will need to be unbanned manually to rejoin.  
+Requires administrator or ban permissions to be ran, as well as the user to have DMs open for an alert.  
+## purge `number of messages`  
+Mass deletes the specified number of messages in that channel.  
+Requires Administrator or manage messages to be ran.  
+## avatar `user mention`  
+Gets the mentioned users avatar as well as a URL to view in a web browser or to link.  
+Requires no permissions to be ran.  
+## mute `user mention`  
+Mutes a specified user. **Requires a role called `mute` exists or this will error!**  
+Requires Administrator
