@@ -1,27 +1,14 @@
 # Arc command docs
-### Updated as of 24/6/18  
+### Updated as of 28/9/18  
 
 # General commands  
 ## help
 Displays basic help information for the user commands that can be ran.  
-Only requires that DMs are open.  
 ## about  
 Shows basic information about Arc and other resources.  
-## stats
-Shows the techniacal stats of Arc (discord.py version, ping, command count, etc.)  
-Requires no permissions to run.  
-## support  
-DMs the support link to the user who ran the command.  
-Only requires that DMs are open.  
-## donate  
-DMs the user a link to the Discord Bot List listing and the Patreon.  
-Only requires that DMs are open.  
 ## ping
 Test the response time of the bot in milliseconds.  
 Requires no permissions to run.
-## invite
-DMs the bot invite link to the user who ran the command.  
-Requires that DMs are open.
 # Moderation commands
 ## serverinfo  
 Displays information about the server the command was ran in (user count, server ID, role count, etc.)  
@@ -32,6 +19,9 @@ Requires no permissions to run.
 ## warn `user mention` `reason`  
 Warn a mentioned user to send a DM to them with a reason for the warning.
 Requires Administrator, kick or ban to be ran, as well as the user to have DMs open.
+## nick `user mention` `new nickname`  
+Change someones nickname.  
+Requires administrator or manage nicknames.  
 ## kick `user mention`
 Kick the mentioned user from the server, they can rejoin with a new invite after.  
 Requires Administrator or kick permissions.  
@@ -61,8 +51,6 @@ Requires Administrator or manage server to be ran.
 # Fun
 ## slap `user mention`
 Slap a user.  
-## lick `user mention`  
-Lick a user.  
 ## punch `user mention`  
 Punch a user.  
 ## hug `user mention`  
@@ -70,9 +58,9 @@ Hug a user.
 ## cookie `user mention`  
 Give a cookie to a user.  
 ## cat  
-Shows a random picture of a cat from  [random-d.uk](https://random-d.uk)  
+Shows a random picture of a cat from [The cat API](http://thecatapi.com)  
 ## duck  
-Shows a random picture of a duck from [The cat API](http://thecatapi.com)  
+Shows a random picture of a duck from [random-d.uk](https://random-d.uk)   
 ## roll `NdN`  
 Roll a dice in NdN format, example would be `arc!roll 1d4`.  
 ## wherewedroppin  
@@ -84,11 +72,18 @@ Pick a random choice. **Requires that all individual values be wrapped in a quot
 eg `arc!choose "1" "2" "3"`  
 ## speak `message`  
 Send a message via the bot.  
-## gamenews `steam game ID`  
-Get news on a steam game from the Steam API.  
-## json `JSON API URL`  
-Makes a request to the specifed JSON API and prints the results.  
 ## weather `location`  
 Gets local weather forcast from [wttr.in](https://wttr.in)  
-## hex  
-Generate a random hex color code.  
+# Music playback  
+## summon  
+Join the voice channel that the message author is in.  
+Requires that the bot can join the voice channel.  
+## play `<song link>`  
+Play a song from a site such as YouTube or SoundCloud.  
+Requires that the bot can speak in the summoned voice chat.  
+## pause  
+Pause the playing music.  
+## resume  
+Resume the music if paused.  
+## stop  
+Stop music playback and leaves the voice channel.  
